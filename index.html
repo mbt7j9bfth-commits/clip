@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Video</title>
 <meta name="robots" content="noindex">
+<meta http-equiv="Cache-Control" content="no-cache">
 <style>
   html,body{margin:0;height:100%;background:#0b0b0b;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
   body{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center}
@@ -19,7 +20,11 @@
 </head>
 <body>
 <main>
-  <video id="v" src="ssstik.io_1795764736744.mp4" controls playsinline webkit-playsinline preload="metadata"></video>
+  <video id="v" controls playsinline webkit-playsinline preload="metadata">
+    <source src="ssstik.io_1795764736744.mp4" type="video/mp4">
+    <source src="https://cdn.jsdelivr.net/gh/mbt7j9bfth-commits/clip@main/ssstik.io_1795764736744.mp4" type="video/mp4">
+  </video>
+  <p id="err" style="display:none;font-size:13px;color:#888;margin-top:10px"></p>
   <h1 id="msg" hidden>YOU GOT RICKED!</h1>
 </main>
 <script>
@@ -27,6 +32,11 @@
   function show(){if(m.hidden){m.hidden=false;m.className='pop';}}
   v.addEventListener('play',show);v.addEventListener('playing',show);
   v.muted=false;v.volume=1;
+  var srcs=v.getElementsByTagName('source'),last=srcs[srcs.length-1];
+  last.addEventListener('error',function(){
+    var e=document.getElementById('err');e.style.display='block';
+    e.textContent='Video could not load. Try opening this link in Safari or Chrome.';
+  });
 </script>
 </body>
 </html>
